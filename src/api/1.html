@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script type="text/javascript" src="http://www.w3dev.cn/rardownload/20130106/20130106170832648.js"></script>  
+<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.2.min.js"></script>  
+<script>  
+    // $.ajax({  
+    //     url: 'http://query.yahooapis.com/v1/public/yql',  
+    //     dataType: 'jsonp', 
+    //     data: {  
+    //         q: "select * from json where url=\"http://mce.mogucdn.com/jsonp/multiget/3?callback=jsonp38522_32254_32255_32259_32483&pids=38522%2C32255%2C32259%2C32483\"",  
+    //         format: "json"  
+    //     },  
+    //     success: function (d) {  
+    //        alert(JSON.stringify(d))//远程json数据放在query.results下  
+    //     }  
+    // });  
+    $.ajax({
+         url:'http://mce.mogucdn.com/jsonp/multiget/3?callback=jsonp38522_32254_32255_32259_32483&pids=38522%2C32255%2C32259%2C32483',       //跨域到http://www.wp.com，另，http://test.com也算跨域
+         type:'GET',                                //jsonp 类型下只能使用GET,不能用POST,这里不写默认为GET
+         dataType:'jsonp',                          //指定为jsonp类型
+         data:{
+           format: "json" 
+         },                //数据参数
+         jsonp:'callback',                          //服务器端获取回调函数名的key，对应后台有$_GET['callback']='getName';callback是默认值
+         jsonpCallback:'jsonp38522_32254_32255_32259_32483',                   //回调函数名
+         success:function(d){                  //成功执行处理，对应后台返回的getName(data)方法。
+             console.log(d.data)    
+             alert(JSON.stringify(d))
+         },
+         error:function(msg){
+             alert(msg.toSource());                 //执行错误
+         }
+     }); 
+    </script>
+</body>
+</html>
